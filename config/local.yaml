@@ -1,0 +1,4 @@
+env: "local"
+dsn: "postgres://postgres:root@localhost:5433/urls?sslmode=disable"
+server:
+  address: "localhost:8082"
