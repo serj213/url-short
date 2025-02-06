@@ -17,9 +17,7 @@ func (s HttpServer) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer r.Body.Close()
-
-
-
+	
 	if err := urlReq.Validation(); err != nil {
 		fmt.Println(err)
 		ErrorResponse(fmt.Sprintf("invalid request: %s", err), w, r, http.StatusBadRequest)

@@ -4,21 +4,21 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
-	"url-short/internal/lib"
 	"url-short/internal/lib/logger/sl"
+	randomalias "url-short/internal/lib/randomAlias"
 )
 
-type urlRepository interface {
+type UrlRepository interface {
 	Create(ctx context.Context, url string, alias string) error
 	GetByAlias(ctx context.Context, alias string) (string, error)
 }
 
 type urlService struct {
 	log *slog.Logger
-	repo urlRepository
+	repo UrlRepository
 }
 
-func New(log *slog.Logger, repo urlRepository) *urlService {
+func New(log *slog.Logger, repo UrlRepository) *urlService {
 	return &urlService{
 		log: log,
 		repo: repo,
@@ -33,7 +33,7 @@ func (r urlService) Create(ctx context.Context, url string, alias string) (strin
 	aliasRes := alias
 
 	if alias == "" {
-		aliasRes = lib.CreateAlias(lengthAlias)
+		aliasRes = randomalias.RandomAlias(lengthAlias)
 	}
 
 	log.Info(aliasRes)
@@ -45,7 +45,9 @@ func (r urlService) Create(ctx context.Context, url string, alias string) (strin
 		return "", err
 	}
 
-	return alias, nil
+	fmt.Println("test err:", err)
+	
+	return aliasRes, nil
 }
 
 func (r urlService) GetUrl(ctx context.Context, alias string) (string, error) {

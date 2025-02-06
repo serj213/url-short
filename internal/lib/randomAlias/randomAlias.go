@@ -1,11 +1,11 @@
-package lib
+package randomalias
 
 import (
 	"math/rand"
 	"time"
 )
 
-func CreateAlias(length int) string {
+var RandomAlias = func (length int) string {
 	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
